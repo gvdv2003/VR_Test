@@ -32,12 +32,22 @@
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
     </a-assets>
 
-    <!-- Camera + controllers rig -->
+
     <a-entity id="rig">
         <a-camera position="0 1.6 0"></a-camera>
-        <a-entity oculus-touch-controls="hand: left" oculus-thumbstick-controls></a-entity>
-        <a-entity oculus-touch-controls="hand: right" oculus-thumbstick-controls></a-entity>
+        <a-entity
+                oculus-touch-controls="hand: left"
+                oculus-thumbstick-controls
+                link-controls="hand: left">
+        </a-entity>
+        <a-entity
+                oculus-touch-controls="hand: right"
+                oculus-thumbstick-controls
+                link-controls="hand: right">
+        </a-entity>
     </a-entity>
+    <!-- Remove these duplicate controllers -->
+
 
     <a-link href="japan.html" position="-16 1.5 0" rotation="0 0 0" image="#thumbJapan"></a-link>
     <a-link href="egypt.html" position="-12 1.5 0" rotation="0 0 0" image="#thumbEgypt"></a-link>
@@ -48,8 +58,7 @@
     <a-link href="dreamland.html" position="8 1.5 0" rotation="0 0 0" image="#thumbDreamland"></a-link>
     <a-link href="mushroom_forest.html" position="12 1.5 0" rotation="0 0 0" image="#thumbMushroomForest"></a-link>
     <a-link href="mystery_land.html" position="16 1.5 0" rotation="0 0 0" image="#thumbMysteryLand"></a-link>
-    <a-entity id="leftHand" link-controls="hand: left"></a-entity>
-    <a-entity id="rightHand" link-controls="hand: right"></a-entity>
+
 </a-scene>
 </body>
 </html>
