@@ -8,7 +8,6 @@
     <script src="js/components/aframe-tooltip-component.js"></script>
     <script src="js/components/camera-position.js"></script>
     <script src="js/components/link-controls.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/n5ro/aframe-extras@6.1.1/dist/aframe-extras.min.js"></script> <!-- Toegevoegd voor movement-controls -->
     <script src="https://unpkg.com/aframe-environment-component@1.3.x/dist/aframe-environment-component.min.js"></script>
     <script src="js/info-message.js"></script>
 </head>
@@ -19,8 +18,6 @@
         camera-position
         environment
         info-message="htmlSrc: #messageText">
-
-    <!-- Assets -->
     <a-assets>
         <img id="thumbJapan" crossOrigin="anonymous" src="https://cdn.aframe.io/link-traversal/thumbs/japan.png">
         <img id="thumbEgypt" crossOrigin="anonymous" src="https://cdn.aframe.io/link-traversal/thumbs/egypt.png">
@@ -33,19 +30,6 @@
         <img id="thumbMysteryLand" crossOrigin="anonymous" src="./images/mysteryland.png">
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
     </a-assets>
-
-    <!-- Camera rig met movement-controls -->
-    <a-entity id="rig" movement-controls="speed: 0.1" position="0 1.6 0">
-        <!-- Camera -->
-        <a-camera position="0 0.3 0">
-            <a-cursor></a-cursor>
-        </a-camera>
-        <!-- Controllers -->
-        <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #FF0000"></a-entity>
-        <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #0000FF"></a-entity>
-    </a-entity>
-
-    <!-- Links -->
     <a-link href="japan.html" position="-16 1.5 0" rotation="0 0 0" image="#thumbJapan"></a-link>
     <a-link href="egypt.html" position="-12 1.5 0" rotation="0 0 0" image="#thumbEgypt"></a-link>
     <a-link href="forest.html" position="-8 1.5 0" rotation="0 0 0" image="#thumbForest"></a-link>
@@ -55,6 +39,8 @@
     <a-link href="dreamland.html" position="8 1.5 0" rotation="0 0 0" image="#thumbDreamland"></a-link>
     <a-link href="mushroom_forest.html" position="12 1.5 0" rotation="0 0 0" image="#thumbMushroomForest"></a-link>
     <a-link href="mystery_land.html" position="16 1.5 0" rotation="0 0 0" image="#thumbMysteryLand"></a-link>
+    <a-entity id="leftHand" link-controls="hand: left"></a-entity>
+    <a-entity id="rightHand" link-controls="hand: right"></a-entity>
 </a-scene>
 </body>
 </html>
