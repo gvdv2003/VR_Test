@@ -21,10 +21,14 @@
         info-message="htmlSrc: #messageText">
 
     <!-- Camera rig met movement-controls -->
-    <a-entity id="rig" movement-controls="speed: 0.1; fly: true">
+    <a-entity id="rig" movement-controls="speed: 0.1; fly: false"> <!-- fly: false voor normaal lopen -->
+        <!-- Camera voor de VR-weergave -->
         <a-camera position="0 1.6 0">
             <a-cursor></a-cursor>
         </a-camera>
+        <!-- Handcontrollers voor interactie en joystick-beweging -->
+        <a-entity id="rightHand" oculus-touch-controls="hand: right"></a-entity>
+        <a-entity id="leftHand" oculus-touch-controls="hand: left"></a-entity>
     </a-entity>
 
     <!-- Assets en links -->
@@ -51,10 +55,6 @@
     <a-link href="dreamland.html" position="8 1.5 0" rotation="0 0 0" image="#thumbDreamland"></a-link>
     <a-link href="mushroom_forest.html" position="12 1.5 0" rotation="0 0 0" image="#thumbMushroomForest"></a-link>
     <a-link href="mystery_land.html" position="16 1.5 0" rotation="0 0 0" image="#thumbMysteryLand"></a-link>
-
-    <!-- Hand controls -->
-    <a-entity id="leftHand" link-controls="hand: left"></a-entity>
-    <a-entity id="rightHand" link-controls="hand: right"></a-entity>
 
 </a-scene>
 </body>
