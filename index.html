@@ -30,6 +30,17 @@
         <img id="thumbMysteryLand" crossOrigin="anonymous" src="./images/mysteryland.png">
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
     </a-assets>
+
+    <a-entity id="rig" movement-controls="speed: 0.1" position="0 1.6 0">
+        <!-- Camera -->
+        <a-camera position="0 1.6 0">
+            <a-cursor></a-cursor>
+        </a-camera>
+        <!-- Controllers -->
+        <a-entity hand-controls="hand: left; handModelStyle: lowPoly; color: #FF0000"></a-entity>
+        <a-entity hand-controls="hand: right; handModelStyle: lowPoly; color: #0000FF"></a-entity>
+    </a-entity>
+
     <a-link href="japan.html" position="-16 1.5 0" rotation="0 0 0" image="#thumbJapan"></a-link>
     <a-link href="egypt.html" position="-12 1.5 0" rotation="0 0 0" image="#thumbEgypt"></a-link>
     <a-link href="forest.html" position="-8 1.5 0" rotation="0 0 0" image="#thumbForest"></a-link>
