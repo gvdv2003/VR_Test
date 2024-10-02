@@ -34,7 +34,7 @@
 
     <a-entity id="rig" movement-controls>
         <!-- Camera met positionering binnen de rig -->
-        <a-camera position="0 1.6 0"></a-camera>
+        <a-camera position="0 1.6 0" id="camera"></a-camera>
 
         <!-- Linker Oculus-controller: gebruik voor verplaatsing -->
         <a-entity
@@ -46,7 +46,8 @@
         <!-- Rechter Oculus-controller: alleen gebruikt voor rondkijken -->
         <a-entity
                 id="right-controller"
-                oculus-touch-controls="hand: right">
+                oculus-touch-controls="hand: right"
+                link-controls="hand: right">
         </a-entity>
     </a-entity>
 
@@ -67,6 +68,7 @@
     // Selecteer de rechter controller en de rig
     const rightController = document.getElementById('right-controller');
     const rig = document.getElementById('rig');
+    const camera = document.getElementById('camera'); // Camera binnen de rig
 
     // Luister naar thumbstick bewegingen op de rechter controller voor rondkijken
     rightController.addEventListener('thumbstickmoved', function (event) {
@@ -80,16 +82,16 @@
         rig.setAttribute('rotation', rotation);
     });
 
-    // Luister naar bewegingen van de linker thumbstick en beweeg in de kijkrichting
+    // Luister naar bewegingen van de linker thumbstick en beweeg in de kijkrichting van de camera
     document.querySelector('[movement-controls]').addEventListener('thumbstickmoved', function (event) {
         const moveForward = event.detail.y; // Y-axis van de thumbstick voor vooruit/achteruit bewegen
         const moveRight = event.detail.x;   // X-axis voor zijwaarts bewegen
 
-        // Huidige rotatie van de rig, nodig om de kijkrichting te bepalen
-        const rigRotation = rig.getAttribute('rotation').y;
+        // Huidige rotatie van de camera, niet de rig, nodig om de kijkrichting te bepalen
+        const cameraRotation = camera.object3D.rotation;
 
-        // Bereken de richting waarin de speler kijkt (in radialen)
-        const angleRad = THREE.Math.degToRad(rigRotation);
+        // Bereken de richting waarin de camera kijkt (op basis van radiaal waarden)
+        const angleRad = cameraRotation.y;
 
         // Bewegingsvectoren (vooruit en zijwaarts) berekenen
         const forwardVector = {x: -Math.sin(angleRad) * moveForward, z: -Math.cos(angleRad) * moveForward};
@@ -110,7 +112,6 @@
         });
     });
 </script>
-
 
 </body>
 </html>
