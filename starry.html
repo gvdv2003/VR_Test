@@ -33,24 +33,26 @@
     </a-assets>
 
     <a-entity id="rig">
+        <!-- Camera met positionering binnen de rig -->
         <a-camera position="0 1.6 0"></a-camera>
+
+        <!-- Linker Oculus-controller -->
         <a-entity
                 oculus-touch-controls="hand: left"
                 oculus-thumbstick-controls
                 link-controls="hand: left">
         </a-entity>
 
+        <!-- Rechter Oculus-controller -->
         <a-entity
                 id="right-controller"
                 oculus-touch-controls="hand: right"
                 oculus-thumbstick-controls
                 link-controls="hand: right">
-
         </a-entity>
     </a-entity>
-    <!-- Remove these duplicate controllers -->
 
-
+    <!-- Links om te teleporteren naar andere werelden -->
     <a-link href="japan.html" position="-16 1.5 0" rotation="0 0 0" image="#thumbJapan"></a-link>
     <a-link href="egypt.html" position="-12 1.5 0" rotation="0 0 0" image="#thumbEgypt"></a-link>
     <a-link href="forest.html" position="-8 1.5 0" rotation="0 0 0" image="#thumbForest"></a-link>
@@ -64,23 +66,22 @@
 </a-scene>
 
 <script>
-    // Selecteer de rechter controller en de camera
-    const rightController = document.querySelector('#right-controller');
-    const cameraEl = document.querySelector('#camera');
+    // Selecteer de rechter controller en de rig
+    const rightController = document.getElementById('right-controller');
+    const rig = document.getElementById('rig');
 
     // Luister naar thumbstick bewegingen op de rechter controller
     rightController.addEventListener('thumbstickmoved', function (event) {
-        // Haal de huidige rotatie van de camera op
-        const rotation = cameraEl.getAttribute('rotation');
+        // Haal de huidige rotatie van de rig op
+        const rotation = rig.getAttribute('rotation');
 
-        // Pas de y-rotatie aan op basis van de x-beweging van de thumbstick
-        rotation.y -= event.detail.x * 2;  // Pas de gevoeligheid aan indien nodig
+        // Pas de y-rotatie aan op basis van de x-beweging van de thumbstick (links/rechts draaien)
+        rotation.y -= event.detail.x * 2;  // Gevoeligheid aanpassen indien nodig
 
-        // Stel de nieuwe rotatie in op de camera
-        cameraEl.setAttribute('rotation', rotation);
+        // Stel de nieuwe rotatie in op de rig
+        rig.setAttribute('rotation', rotation);
     });
 </script>
-
 
 </body>
 </html>
