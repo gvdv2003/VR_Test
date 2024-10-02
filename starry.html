@@ -41,8 +41,10 @@
         </a-entity>
 
         <a-entity
+                id="right-controller"
                 oculus-touch-controls="hand: right"
-                oculus-thumbstick-controls>
+                oculus-thumbstick-controls
+                link-controls="hand: right">
 
         </a-entity>
     </a-entity>
@@ -60,5 +62,25 @@
     <a-link href="mystery_land.html" position="16 1.5 0" rotation="0 0 0" image="#thumbMysteryLand"></a-link>
 
 </a-scene>
+
+<script>
+    // Selecteer de rechter controller en de camera
+    const rightController = document.querySelector('#right-controller');
+    const cameraEl = document.querySelector('#camera');
+
+    // Luister naar thumbstick bewegingen op de rechter controller
+    rightController.addEventListener('thumbstickmoved', function (event) {
+        // Haal de huidige rotatie van de camera op
+        const rotation = cameraEl.getAttribute('rotation');
+
+        // Pas de y-rotatie aan op basis van de x-beweging van de thumbstick
+        rotation.y -= event.detail.x * 2;  // Pas de gevoeligheid aan indien nodig
+
+        // Stel de nieuwe rotatie in op de camera
+        cameraEl.setAttribute('rotation', rotation);
+    });
+</script>
+
+
 </body>
 </html>
