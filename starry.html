@@ -32,22 +32,21 @@
         <a-asset-item id="messageText" src="message.html"></a-asset-item>
     </a-assets>
 
-    <a-entity id="rig">
+    <a-entity id="rig" movement-controls>
         <!-- Camera met positionering binnen de rig -->
         <a-camera position="0 1.6 0"></a-camera>
 
-        <!-- Linker Oculus-controller -->
+        <!-- Linker Oculus-controller: gebruik voor verplaatsing -->
         <a-entity
                 oculus-touch-controls="hand: left"
                 oculus-thumbstick-controls
                 link-controls="hand: left">
         </a-entity>
 
-        <!-- Rechter Oculus-controller -->
+        <!-- Rechter Oculus-controller: alleen gebruikt voor rondkijken -->
         <a-entity
                 id="right-controller"
                 oculus-touch-controls="hand: right">
-
         </a-entity>
     </a-entity>
 
@@ -69,7 +68,7 @@
     const rightController = document.getElementById('right-controller');
     const rig = document.getElementById('rig');
 
-    // Luister naar thumbstick bewegingen op de rechter controller
+    // Luister naar thumbstick bewegingen op de rechter controller voor rondkijken
     rightController.addEventListener('thumbstickmoved', function (event) {
         // Haal de huidige rotatie van de rig op
         const rotation = rig.getAttribute('rotation');
@@ -79,6 +78,36 @@
 
         // Stel de nieuwe rotatie in op de rig
         rig.setAttribute('rotation', rotation);
+    });
+
+    // Luister naar bewegingen van de linker thumbstick en beweeg in de kijkrichting
+    document.querySelector('[movement-controls]').addEventListener('thumbstickmoved', function (event) {
+        const moveForward = event.detail.y; // Y-axis van de thumbstick voor vooruit/achteruit bewegen
+        const moveRight = event.detail.x;   // X-axis voor zijwaarts bewegen
+
+        // Huidige rotatie van de rig, nodig om de kijkrichting te bepalen
+        const rigRotation = rig.getAttribute('rotation').y;
+
+        // Bereken de richting waarin de speler kijkt (in radialen)
+        const angleRad = THREE.Math.degToRad(rigRotation);
+
+        // Bewegingsvectoren (vooruit en zijwaarts) berekenen
+        const forwardVector = {x: -Math.sin(angleRad) * moveForward, z: -Math.cos(angleRad) * moveForward};
+        const strafeVector = {x: Math.cos(angleRad) * moveRight, z: -Math.sin(angleRad) * moveRight};
+
+        // Combineer de voorwaartse en zijwaartse bewegingen
+        const movement = {
+            x: forwardVector.x + strafeVector.x,
+            z: forwardVector.z + strafeVector.z
+        };
+
+        // Pas de nieuwe positie van de rig aan
+        const currentPosition = rig.getAttribute('position');
+        rig.setAttribute('position', {
+            x: currentPosition.x + movement.x,
+            y: currentPosition.y,
+            z: currentPosition.z + movement.z
+        });
     });
 </script>
 
